@@ -3,9 +3,7 @@
 
 #include "Graph.h"
 
-void PrintGraph(const Graphs::Graph& graph) {
-	auto nodes = graph.GetNodes();
-
+void PrintNodes(const std::vector<Graphs::Node*>& nodes) {
 	for (auto node : nodes) {
 		int id = node->GetID();
 		auto outEdges = node->GetOutEdges();
@@ -24,6 +22,12 @@ void PrintGraph(const Graphs::Graph& graph) {
 	}
 }
 
+void PrintGraph(const Graphs::Graph& graph) {
+	auto nodes = graph.GetNodes();
+
+	PrintNodes(nodes);
+}
+
 int main()
 {
 	using namespace Graphs;
@@ -38,10 +42,12 @@ int main()
 	graph.AddEdge(nodes[0], nodes[4], 0);
 	graph.AddEdge(nodes[3], nodes[4], 0);
 
-	graph.RemoveEdge(nodes[3], nodes[4]);
-	graph.RemoveNode(nodes[1]);
+	//graph.RemoveEdge(nodes[3], nodes[4]);
+	//graph.RemoveNode(nodes[1]);
 
-	PrintGraph(graph);
+	std::cout << graph.GetAdjacentNodesSize(nodes[1]);
+
+	//PrintGraph(graph);
 
 	return 0;
 }

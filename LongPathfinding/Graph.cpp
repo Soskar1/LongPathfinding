@@ -65,6 +65,18 @@ namespace Graphs {
 		return m_OutEdges;
 	}
 
+	std::vector<Node*> Node::GetAdjacentNodes() const
+	{
+		std::vector<Node*> nodes(m_InEdges);
+		for (int i = 0; i < m_OutEdges.size(); ++i) {
+			nodes.push_back(m_OutEdges[i].first);
+		}
+
+		nodes.erase(std::unique(nodes.begin(), nodes.end()), nodes.end());
+
+		return nodes;
+	}
+
 	size_t Node::GetID() const
 	{
 		return m_ID;
@@ -149,5 +161,31 @@ namespace Graphs {
 	std::vector<Node*> Graph::GetNodes() const
 	{
 		return m_Nodes;
+	}
+
+	size_t Graph::GetAdjacentNodesSize(Node* node) const
+	{
+		return node->GetAdjacentNodes().size();
+	}
+
+	std::vector<Node*> Graph::GetAdjacentNodes(Node* node) const
+	{
+		return node->GetAdjacentNodes();
+	}
+
+	size_t Graph::GetNodeSize() const
+	{
+		return m_Nodes.size();
+	}
+
+	size_t Graph::GetEdgeSize() const
+	{
+		size_t nodeSize = 0;
+
+		for (auto node : m_Nodes) {
+			nodeSize += node->GetOutEdges().size();
+		}
+
+		return nodeSize;
 	}
 }

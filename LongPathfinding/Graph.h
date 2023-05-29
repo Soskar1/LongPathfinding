@@ -22,6 +22,8 @@ namespace Graphs {
 		std::vector<Node*> GetInEdges() const;
 		std::vector<std::pair<Node*, int>> GetOutEdges() const;
 
+		std::vector<Node*> GetAdjacentNodes() const;
+
 		size_t GetID() const;
 	};
 
@@ -42,7 +44,7 @@ namespace Graphs {
 
 		std::vector<Node*> GetNodes() const;
 		
-		size_t GetAdjacentNodesCount(Node* node) const;
+		size_t GetAdjacentNodesSize(Node* node) const;
 		std::vector<Node*> GetAdjacentNodes(Node* node) const;
 
 		size_t GetNodeSize() const;
