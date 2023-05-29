@@ -21,9 +21,22 @@ namespace Graphs {
 	private:
 		std::vector<Node*> m_Nodes;
 	public:
+		Graph();
 		Graph(const std::vector<std::vector<int>>& adjacencyMatrix);
 
+		void AddNode();
+		void AddEdge(Node*& firstNode, Node*& secondNode);
+
+		void RemoveNode(Node*& node);
+		void RemoveEdge(Node*& firstNode, Node*& secondNode);
+
 		std::vector<Node*> GetNodes() const;
+		
+		size_t GetAdjacentNodesCount(Node*& node) const;
+		std::vector<Node*> GetAdjacentNodes(Node*& node) const;
+
+		size_t GetNodeSize() const;
+		size_t GetEdgeSize() const;
 	};
 }
 #endif
