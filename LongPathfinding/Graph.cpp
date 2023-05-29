@@ -188,4 +188,16 @@ namespace Graphs {
 
 		return nodeSize;
 	}
+
+	bool Graph::Connected(Node* startNode, Node* endNode)
+	{
+		auto endNodeInEdges = endNode->GetInEdges();
+		for (auto it = endNodeInEdges.begin(); it != endNodeInEdges.end(); ++it) {
+			if (*it == startNode) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 }

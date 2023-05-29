@@ -49,6 +49,8 @@ namespace Graphs {
 
 		size_t GetNodeSize() const;
 		size_t GetEdgeSize() const;
+
+		bool Connected(Node* startNode, Node* endNode);
 	};
 }
 #endif

@@ -45,7 +45,7 @@ int main()
 	//graph.RemoveEdge(nodes[3], nodes[4]);
 	//graph.RemoveNode(nodes[1]);
 
-	std::cout << graph.GetAdjacentNodesSize(nodes[1]);
+	std::cout << graph.Connected(nodes[3], nodes[4]);
 
 	//PrintGraph(graph);
 
