@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "Graph.h"
+#include "Pathfinding.h"
 
 void PrintNodes(const std::vector<Graphs::Node*>& nodes) {
 	for (auto node : nodes) {
@@ -31,23 +32,22 @@ void PrintGraph(const Graphs::Graph& graph) {
 int main()
 {
 	using namespace Graphs;
+	using namespace Pathfinding;
 
-	Graph graph(5);
+	Graph graph({
+		{0, 6, 5, 3, 0},
+		{0, 0, -8, 1, 2},
+		{7, 0, 0, 4, 0},
+		{0, 5, 0, 0, 8},
+		{0, 5, 0, -2, 0}
+		});
 
 	std::vector<Node*> nodes = graph.GetNodes();
-	graph.AddEdge(nodes[0], nodes[1], 2);
-	graph.AddEdge(nodes[1], nodes[0], 4);
-	graph.AddEdge(nodes[1], nodes[2], 1);
-	graph.AddEdge(nodes[1], nodes[3], 3);
-	graph.AddEdge(nodes[0], nodes[4], 0);
-	graph.AddEdge(nodes[3], nodes[4], 0);
+	std::vector<int> path = LongestPath(graph, nodes[0], nodes[4]);
 
-	//graph.RemoveEdge(nodes[3], nodes[4]);
-	//graph.RemoveNode(nodes[1]);
-
-	std::cout << graph.Connected(nodes[3], nodes[4]);
-
-	//PrintGraph(graph);
+	for (auto step : path) {
+		std::cout << step << " ";
+	}
 
 	return 0;
 }

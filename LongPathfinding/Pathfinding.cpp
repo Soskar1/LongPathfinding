@@ -6,7 +6,7 @@
 namespace Pathfinding {
 	struct NodeCompare {
 		bool operator()(const std::pair<Graphs::Node*, int>& node1, const std::pair<Graphs::Node*, int>& node2) {
-			return node1.second > node2.second;
+			return node1.second < node2.second;
 		}
 	};
 
@@ -90,7 +90,6 @@ namespace Pathfinding {
 
 			auto neighbours = node.first->GetOutEdges();
 
-			Node* nextNode;
 			for (auto neighbour : neighbours) {
 				Node* neighbourNode = neighbour.first;
 				int weight = neighbour.second;
@@ -113,5 +112,11 @@ namespace Pathfinding {
 		}
 
 		return ConstructPath(cameFrom, endNode);
+	}
+
+	std::vector<int> LongestPath(const Graphs::Graph& graph, Graphs::Node* startNode, Graphs::Node* endNode) {
+		using namespace Graphs;
+
+		//TOOD: DP approach. Starting from endNode
 	}
 }
