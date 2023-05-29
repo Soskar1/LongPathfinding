@@ -7,12 +7,20 @@ namespace Graphs {
 	class Node {
 	private:
 		size_t m_ID;
-		std::vector<std::pair<Node*, int>> m_AdjacentNodes;
+		std::vector<std::pair<Node*, int>> m_OutEdges;
+		std::vector<Node*> m_InEdges;
 	public:
 		Node(const size_t& id);
+		~Node();
 
-		void AddAdjacentNode(Node* node, const int& weight);
-		std::vector<std::pair<Node*, int>> GetAdjacentNodes() const;
+		void AddInEdge(Node* node);
+		void RemoveInEdge(Node* node);
+
+		void AddOutEdge(Node* node, const int& weight);
+		void RemoveOutEdge(Node* node);
+
+		std::vector<Node*> GetInEdges() const;
+		std::vector<std::pair<Node*, int>> GetOutEdges() const;
 
 		size_t GetID() const;
 	};
@@ -22,18 +30,20 @@ namespace Graphs {
 		std::vector<Node*> m_Nodes;
 	public:
 		Graph();
+		Graph(const size_t& size);
 		Graph(const std::vector<std::vector<int>>& adjacencyMatrix);
+		~Graph();
 
 		void AddNode();
-		void AddEdge(Node*& firstNode, Node*& secondNode);
+		void AddEdge(Node* startNode, Node* endNode, const size_t& weight = 0);
 
-		void RemoveNode(Node*& node);
-		void RemoveEdge(Node*& firstNode, Node*& secondNode);
+		void RemoveNode(Node* node);
+		void RemoveEdge(Node* startNode, Node* endNode);
 
 		std::vector<Node*> GetNodes() const;
 		
-		size_t GetAdjacentNodesCount(Node*& node) const;
-		std::vector<Node*> GetAdjacentNodes(Node*& node) const;
+		size_t GetAdjacentNodesCount(Node* node) const;
+		std::vector<Node*> GetAdjacentNodes(Node* node) const;
 
 		size_t GetNodeSize() const;
 		size_t GetEdgeSize() const;

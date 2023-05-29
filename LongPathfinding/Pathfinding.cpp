@@ -26,7 +26,7 @@ namespace Pathfinding {
 			auto node = queue.top();
 			queue.pop();
 
-			auto neighbours = node.first->GetAdjacentNodes();
+			auto neighbours = node.first->GetOutEdges();
 
 			for (int i = 0; i < neighbours.size(); ++i) {
 				Node* neighbourNode = neighbours[i].first;
@@ -88,7 +88,7 @@ namespace Pathfinding {
 				break;
 			}
 
-			auto neighbours = node.first->GetAdjacentNodes();
+			auto neighbours = node.first->GetOutEdges();
 
 			Node* nextNode;
 			for (auto neighbour : neighbours) {
