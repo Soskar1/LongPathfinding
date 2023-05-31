@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <vector>
 
 #include "Graph.h"
@@ -9,14 +9,14 @@ int main()
 	using namespace Graphs;
 	using namespace Pathfinding;
 
-	//"Unweighted" Directed Acyclic Graph
+	//Weighted Directed Acyclic Graph
 	Graph graph({
 		{0, 1, 1, 0, 0, 0, 0, 0},
 		{0, 0, 0, 1, 1, 0, 0, 0},
-		{0, 0, 0, 0, 0, 1, 0, 0},
+		{0, 0, 0, 0, 0, 5, 0, 0},
 		{0, 0, 0, 0, 0, 0, 1, 0},
 		{0, 0, 0, 0, 0, 0, 1, 0},
-		{0, 0, 0, 0, 0, 0, 0, 1},
+		{0, 0, 0, 0, 0, 0, 0, 10},
 		{0, 0, 0, 0, 0, 0, 0, 1},
 		{0, 0, 0, 0, 0, 0, 0, 0}
 		});

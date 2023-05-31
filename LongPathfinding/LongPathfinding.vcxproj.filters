@@ -18,10 +18,19 @@
     <ClCompile Include="Graph.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Example1.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Pathfinding.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Example2.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Example3.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Example4.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

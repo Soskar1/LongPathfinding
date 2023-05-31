@@ -52,5 +52,8 @@ namespace Graphs {
 
 		bool Connected(Node* startNode, Node* endNode);
 	};
+
+	void PrintNodes(const std::vector<Node*>& nodes);
+	void PrintGraph(const Graph& graph);
 }
 #endif

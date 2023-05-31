@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 
 namespace Graphs {
 	Node::Node(const size_t& id)
@@ -199,5 +200,32 @@ namespace Graphs {
 		}
 
 		return false;
+	}
+
+	void PrintNodes(const std::vector<Node*>& nodes)
+	{
+		for (auto node : nodes) {
+			int id = node->GetID();
+			auto outEdges = node->GetOutEdges();
+			auto inEdges = node->GetInEdges();
+
+			std::cout << id << ":\n";
+			std::cout << "  outEdges:\n";
+			for (auto edge : outEdges) {
+				std::cout << "\t" << id << " -> " << edge.first->GetID() << ": " << edge.second << std::endl;
+			}
+
+			std::cout << "  inEdges:\n";
+			for (auto edge : inEdges) {
+				std::cout << "\t" << edge->GetID() << " -> " << id << std::endl;
+			}
+		}
+	}
+
+	void PrintGraph(const Graph& graph)
+	{
+		auto nodes = graph.GetNodes();
+
+		PrintNodes(nodes);
 	}
 }

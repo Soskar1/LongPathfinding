@@ -158,6 +158,9 @@ namespace Pathfinding {
 			visited[node.first->GetID()] = true;
 		}
 
-		return ConstructPath(cameFrom, endNode);
+		if (cameFrom.find(endNode) != cameFrom.end())
+			return ConstructPath(cameFrom, endNode);
+		else
+			return std::list<Node*>();
 	}
 }
