@@ -204,7 +204,7 @@ namespace Graphs {
 		return nodeSize;
 	}
 
-	bool Graph::Connected(Node* startNode, Node* endNode)
+	bool Graph::Connected(Node* startNode, Node* endNode) const
 	{
 		auto endNodeInEdges = endNode->GetInEdges();
 		for (auto it = endNodeInEdges.begin(); it != endNodeInEdges.end(); ++it) {

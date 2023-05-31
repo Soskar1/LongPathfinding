@@ -50,7 +50,7 @@ namespace Graphs {
 		size_t GetNodeSize() const;
 		size_t GetEdgeSize() const;
 
-		bool Connected(Node* startNode, Node* endNode);
+		bool Connected(Node* startNode, Node* endNode) const;
 	};
 
 	void PrintNodes(const std::vector<Node*>& nodes);
