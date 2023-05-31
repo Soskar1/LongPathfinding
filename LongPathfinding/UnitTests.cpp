@@ -12,6 +12,7 @@ void LongestPathTest(const std::vector<std::vector<int>>& adjacencyMatrix, const
 	using namespace Graphs;
 	using namespace Pathfinding;
 	
+	++testCounter;
 	std::cout << "TEST " << testCounter << ": ";
 
 	Graph graph(adjacencyMatrix);
@@ -25,15 +26,13 @@ void LongestPathTest(const std::vector<std::vector<int>>& adjacencyMatrix, const
 		nodeIDs.push_back(node->GetID());
 		std::cout << node->GetID() << " ";
 	}
+	std::cout << std::endl;
 
 	assert(path.size() == correctPath.size());
 
 	for (int i = 0; i < correctPath.size(); ++i) {
 		assert(nodeIDs[i] == correctPath[i]);
 	}
-
-	std::cout << std::endl;
-	++testCounter;
 }
 
 int main()

@@ -23,6 +23,7 @@
     <ClCompile Include="Example3.cpp" />
     <ClCompile Include="Example4.cpp" />
     <ClCompile Include="Example5.cpp" />
+    <ClCompile Include="Example6.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Example1.cpp" />
     <ClCompile Include="Pathfinding.cpp" />
