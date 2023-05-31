@@ -121,36 +121,50 @@ namespace Graphs {
 		m_Nodes.clear();
 	}
 
-	void Graph::AddNode()
+	std::vector<Node*> Graph::AddNode()
 	{
-		Node* node = new Node(m_Nodes.size());
-		m_Nodes.push_back(node);
+		Node* node;
+		size_t id = m_Nodes.size();
+
+		for (size_t i = 0; i < m_Nodes.size(); ++i) {
+			if (m_Nodes[i] == nullptr) {
+				id = i;
+				break;
+			}
+		}
+
+		node = new Node(id);
+		
+		if (id != m_Nodes.size()) {
+			m_Nodes[id] = node;
+		}
+		else {
+			m_Nodes.push_back(node);
+		}
+
+		return m_Nodes;
 	}
 
 	void Graph::AddEdge(Node* startNode, Node* endNode, const size_t& weight)
 	{
-		auto outEdges = startNode->GetOutEdges();
-
-		for (auto edge : outEdges) {
-			if (edge.first == endNode) {
-				return;
-			}
-		}
+		if (Connected(startNode, endNode))
+			return;
 
 		startNode->AddOutEdge(endNode, weight);
 		endNode->AddInEdge(startNode);
 	}
 
-	void Graph::RemoveNode(Node* node)
+	void Graph::RemoveNode(Node*& node)
 	{
 		for (auto it = m_Nodes.begin(); it != m_Nodes.end(); ++it) {
 			if (*it == node) {
-				m_Nodes.erase(it);
+				delete* it;
+				*it = nullptr;
 				break;
 			}
 		}
 
-		delete node;
+		node = nullptr;
 	}
 
 	void Graph::RemoveEdge(Node* startNode, Node* endNode)

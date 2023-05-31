@@ -36,10 +36,10 @@ namespace Graphs {
 		Graph(const std::vector<std::vector<int>>& adjacencyMatrix);
 		~Graph();
 
-		void AddNode();
+		std::vector<Node*> AddNode();
 		void AddEdge(Node* startNode, Node* endNode, const size_t& weight = 0);
 
-		void RemoveNode(Node* node);
+		void RemoveNode(Node*& node);
 		void RemoveEdge(Node* startNode, Node* endNode);
 
 		std::vector<Node*> GetNodes() const;
