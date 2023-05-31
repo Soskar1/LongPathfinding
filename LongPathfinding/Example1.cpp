@@ -34,19 +34,23 @@ int main()
 	using namespace Graphs;
 	using namespace Pathfinding;
 
+	//"Unweighted" Directed Acyclic Graph
 	Graph graph({
-		{0, 6, 5, 3, 0},
-		{0, 0, -8, 1, 2},
-		{7, 0, 0, 4, 0},
-		{0, 5, 0, 0, 8},
-		{0, 5, 0, -2, 0}
+		{0, 1, 1, 0, 0, 0, 0, 0},
+		{0, 0, 0, 1, 1, 0, 0, 0},
+		{0, 0, 0, 0, 0, 1, 0, 0},
+		{0, 0, 0, 0, 0, 0, 1, 0},
+		{0, 0, 0, 0, 0, 0, 1, 0},
+		{0, 0, 0, 0, 0, 0, 0, 1},
+		{0, 0, 0, 0, 0, 0, 0, 1},
+		{0, 0, 0, 0, 0, 0, 0, 0}
 		});
 
 	std::vector<Node*> nodes = graph.GetNodes();
-	std::vector<int> path = LongestPath(graph, nodes[0], nodes[4]);
+	std::list<Node*> path = LongestPath(graph, nodes[0], nodes[7]);
 
-	for (auto step : path) {
-		std::cout << step << " ";
+	for (auto node : path) {
+		std::cout << node->GetID() << " ";
 	}
 
 	return 0;

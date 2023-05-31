@@ -114,9 +114,50 @@ namespace Pathfinding {
 		return ConstructPath(cameFrom, endNode);
 	}
 
-	std::vector<int> LongestPath(const Graphs::Graph& graph, Graphs::Node* startNode, Graphs::Node* endNode) {
+	std::list<Graphs::Node*> LongestPath(const Graphs::Graph& graph, Graphs::Node* startNode, Graphs::Node* endNode) {
 		using namespace Graphs;
 
-		//TOOD: DP approach. Starting from endNode
+		std::vector<Node*> graphNodes = graph.GetNodes();
+		std::vector<bool> visited(graphNodes.size(), false);
+		std::vector<int> distances(graphNodes.size(), INT_MIN);
+		std::map<Node*, Node*> cameFrom;
+
+		std::priority_queue<std::pair<Node*, int>, std::vector<std::pair<Node*, int>>, NodeCompare> queue;
+
+		distances[startNode->GetID()] = 0;
+
+		queue.push(std::make_pair(startNode, 0));
+
+		while (!queue.empty()) {
+			auto node = queue.top();
+			queue.pop();
+
+			if (node.first == endNode) {
+				continue;
+			}
+
+			auto neighbours = node.first->GetOutEdges();
+
+			for (auto neighbour : neighbours) {
+				Node* neighbourNode = neighbour.first;
+				int weight = neighbour.second;
+
+				if (visited[neighbourNode->GetID()])
+					continue;
+
+				int totalCost = distances[node.first->GetID()] + weight;
+
+				if (totalCost > distances[neighbourNode->GetID()]) {
+					distances[neighbourNode->GetID()] = totalCost;
+
+					cameFrom[neighbourNode] = node.first;
+					queue.push(std::make_pair(neighbourNode, totalCost));
+				}
+			}
+
+			visited[node.first->GetID()] = true;
+		}
+
+		return ConstructPath(cameFrom, endNode);
 	}
 }
