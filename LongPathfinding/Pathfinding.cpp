@@ -2,11 +2,32 @@
 
 #include <queue>
 #include <map>
+#include <set>
 
 namespace Pathfinding {
+	struct GraphInfo {
+		std::vector<bool> visited;
+		std::vector<int> distances;
+		std::map<Graphs::Node*, Graphs::Node*> cameFrom;
+		int currentCost;
+
+		GraphInfo(std::vector<Graphs::Node*> nodes) {
+			visited = std::vector<bool>(nodes.size(), false);
+			distances = std::vector<int>(nodes.size(), INT_MIN);
+			cameFrom = std::map<Graphs::Node*, Graphs::Node*>();
+			currentCost = 0;
+		}
+	};
+
 	struct NodeCompare {
-		bool operator()(const std::pair<Graphs::Node*, int>& node1, const std::pair<Graphs::Node*, int>& node2) {
-			return node1.second < node2.second;
+		bool operator()(const std::pair<Graphs::Node*, GraphInfo>& node1, const std::pair<Graphs::Node*, GraphInfo>& node2) const {
+			return node1.second.currentCost < node2.second.currentCost;
+		}
+	};
+
+	struct PathCompare {
+		bool operator()(const GraphInfo& path1, const GraphInfo& path2) const {
+			return path1.currentCost < path2.currentCost;
 		}
 	};
 
@@ -45,23 +66,25 @@ namespace Pathfinding {
 		using namespace Graphs;
 
 		std::vector<Node*> graphNodes = graph.GetNodes();
-		std::vector<bool> visited(graphNodes.size(), false);
-		std::vector<int> distances(graphNodes.size(), INT_MIN);
-		std::map<Node*, Node*> cameFrom;
+		std::set<GraphInfo, PathCompare> paths;
 
-		std::priority_queue<std::pair<Node*, int>, std::vector<std::pair<Node*, int>>, NodeCompare> queue;
+		GraphInfo graphInfo(graphNodes);
+		graphInfo.distances[startNode->GetID()] = 0;
 
-		distances[startNode->GetID()] = 0;
+		std::priority_queue<std::pair<Node*, GraphInfo>, std::vector<std::pair<Node*, GraphInfo>>, NodeCompare> queue;
 
-		queue.push(std::make_pair(startNode, 0));
+		queue.push(std::make_pair(startNode, graphInfo));
 
 		while (!queue.empty()) {
 			auto node = queue.top();
 			queue.pop();
 
 			if (node.first == endNode) {
+				paths.insert(node.second);
 				continue;
 			}
+
+			GraphInfo graphInfo = node.second;
 
 			auto neighbours = node.first->GetOutEdges();
 
@@ -69,25 +92,28 @@ namespace Pathfinding {
 				Node* neighbourNode = neighbour.first;
 				int weight = neighbour.second;
 
-				if (graph.Connected(neighbourNode, node.first))
+				if (graphInfo.visited[neighbourNode->GetID()] && graph.Connected(neighbourNode, node.first))
 					continue;
 
-				int totalCost = distances[node.first->GetID()] + weight;
+				int totalCost = graphInfo.distances[node.first->GetID()] + weight;
 
-				if (totalCost > distances[neighbourNode->GetID()]) {
-					distances[neighbourNode->GetID()] = totalCost;
+				if (totalCost > graphInfo.distances[neighbourNode->GetID()]) {
+					graphInfo.distances[neighbourNode->GetID()] = totalCost;
 
-					cameFrom[neighbourNode] = node.first;
-					queue.push(std::make_pair(neighbourNode, totalCost));
+					graphInfo.cameFrom[neighbourNode] = node.first;
+					queue.push(std::make_pair(neighbourNode, graphInfo));
 				}
 			}
 
-			visited[node.first->GetID()] = true;
+			graphInfo.visited[node.first->GetID()] = true;
 		}
 
-		if (cameFrom.find(endNode) != cameFrom.end())
-			return ConstructPath(cameFrom, endNode);
-		else
+		if (paths.size() != 0) {
+			auto graphInfo = *paths.begin();
+			return ConstructPath(graphInfo.cameFrom, endNode);
+		}
+		else {
 			return std::list<Node*>();
+		}
 	}
 }
