@@ -24,12 +24,15 @@
     <ClCompile Include="Example4.cpp" />
     <ClCompile Include="Example5.cpp" />
     <ClCompile Include="Example6.cpp" />
+    <ClCompile Include="Experimentator.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Example1.cpp" />
     <ClCompile Include="Pathfinding.cpp" />
+    <ClCompile Include="SpeedTest.cpp" />
     <ClCompile Include="UnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Experimentator.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="Pathfinding.h" />
   </ItemGroup>
