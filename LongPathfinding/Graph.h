@@ -30,6 +30,8 @@ namespace Graphs {
 	class Graph {
 	private:
 		std::vector<Node*> m_Nodes;
+		size_t m_EdgeSize;
+		size_t m_NodeSize;
 	public:
 		Graph();
 		Graph(const size_t& size);
@@ -52,8 +54,5 @@ namespace Graphs {
 
 		bool Connected(Node* startNode, Node* endNode) const;
 	};
-
-	void PrintNodes(const std::vector<Node*>& nodes);
-	void PrintGraph(const Graph& graph);
 }
 #endif

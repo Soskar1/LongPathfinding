@@ -86,6 +86,8 @@ namespace Graphs {
 	Graph::Graph()
 	{
 		m_Nodes = std::vector<Node*>();
+		m_EdgeSize = 0;
+		m_NodeSize = 0;
 	}
 
 	Graph::Graph(const size_t& size)
@@ -93,11 +95,16 @@ namespace Graphs {
 		for (int i = 0; i < size; ++i) {
 			m_Nodes.push_back(new Node(i));
 		}
+
+		m_EdgeSize = 0;
+		m_NodeSize = size;
 	}
 
 	Graph::Graph(const std::vector<std::vector<int>>& adjacencyMatrix)
 	{
 		m_Nodes = std::vector<Node*>(adjacencyMatrix.size());
+		m_EdgeSize = 0;
+		m_NodeSize = adjacencyMatrix.size();
 
 		for (int i = 0; i < adjacencyMatrix.size(); ++i) {
 			m_Nodes[i] = new Node(i);
@@ -142,6 +149,7 @@ namespace Graphs {
 			m_Nodes.push_back(node);
 		}
 
+		++m_NodeSize;
 		return m_Nodes;
 	}
 
@@ -152,12 +160,15 @@ namespace Graphs {
 
 		startNode->AddOutEdge(endNode, weight);
 		endNode->AddInEdge(startNode);
+		++m_EdgeSize;
 	}
 
 	void Graph::RemoveNode(Node*& node)
 	{
 		for (auto it = m_Nodes.begin(); it != m_Nodes.end(); ++it) {
 			if (*it == node) {
+				m_EdgeSize -= node->GetInEdges().size() + node->GetOutEdges().size();
+
 				delete* it;
 				*it = nullptr;
 				break;
@@ -165,12 +176,14 @@ namespace Graphs {
 		}
 
 		node = nullptr;
+		--m_NodeSize;
 	}
 
 	void Graph::RemoveEdge(Node* startNode, Node* endNode)
 	{
 		startNode->RemoveOutEdge(endNode);
 		endNode->RemoveInEdge(startNode);
+		--m_EdgeSize;
 	}
 
 	std::vector<Node*> Graph::GetNodes() const
@@ -190,18 +203,12 @@ namespace Graphs {
 
 	size_t Graph::GetNodeSize() const
 	{
-		return m_Nodes.size();
+		return m_NodeSize;
 	}
 
 	size_t Graph::GetEdgeSize() const
 	{
-		size_t nodeSize = 0;
-
-		for (auto node : m_Nodes) {
-			nodeSize += node->GetOutEdges().size();
-		}
-
-		return nodeSize;
+		return m_EdgeSize;
 	}
 
 	bool Graph::Connected(Node* startNode, Node* endNode) const
@@ -214,32 +221,5 @@ namespace Graphs {
 		}
 
 		return false;
-	}
-
-	void PrintNodes(const std::vector<Node*>& nodes)
-	{
-		for (auto node : nodes) {
-			int id = node->GetID();
-			auto outEdges = node->GetOutEdges();
-			auto inEdges = node->GetInEdges();
-
-			std::cout << id << ":\n";
-			std::cout << "  outEdges:\n";
-			for (auto edge : outEdges) {
-				std::cout << "\t" << id << " -> " << edge.first->GetID() << ": " << edge.second << std::endl;
-			}
-
-			std::cout << "  inEdges:\n";
-			for (auto edge : inEdges) {
-				std::cout << "\t" << edge->GetID() << " -> " << id << std::endl;
-			}
-		}
-	}
-
-	void PrintGraph(const Graph& graph)
-	{
-		auto nodes = graph.GetNodes();
-
-		PrintNodes(nodes);
 	}
 }
