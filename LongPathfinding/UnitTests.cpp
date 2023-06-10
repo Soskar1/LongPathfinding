@@ -18,17 +18,17 @@ void LongestPathTest(const std::vector<std::vector<int>>& adjacencyMatrix, const
 	Graph graph(adjacencyMatrix);
 
 	std::vector<Node*> nodes = graph.GetNodes();
-	std::list<Node*> path = LongestPath(graph, nodes[startNode], nodes[endNode]);
+	auto path = LongestPath(graph, nodes[startNode], nodes[endNode]);
 
 	std::vector<int> nodeIDs;
 
-	for (auto node : path) {
+	for (auto node : path.first) {
 		nodeIDs.push_back(node->GetID());
 		std::cout << node->GetID() << " ";
 	}
 	std::cout << std::endl;
 
-	assert(path.size() == correctPath.size());
+	assert(path.first.size() == correctPath.size());
 
 	for (int i = 0; i < correctPath.size(); ++i) {
 		assert(nodeIDs[i] == correctPath[i]);

@@ -24,11 +24,13 @@ int main()
 		});
 
 	std::vector<Node*> nodes = graph.GetNodes();
-	std::list<Node*> path = LongestPathHeuristic(graph, nodes[0], nodes[10]);
+	auto path = LongestPathHeuristic(graph, nodes[0], nodes[10]);
 
-	for (auto node : path) {
+	for (auto node : path.first) {
 		std::cout << node->GetID() << " ";
 	}
+
+	std::cout << "\nlength: " << path.second;
 
 	return 0;
 }

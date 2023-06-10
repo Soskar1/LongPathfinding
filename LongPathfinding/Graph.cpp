@@ -106,6 +106,36 @@ namespace Graphs {
 		m_EdgeSize = 0;
 		m_NodeSize = adjacencyMatrix.size();
 
+		Create(adjacencyMatrix);
+	}
+
+	Graph::Graph(int** adjacencyMatrix, const int& size)
+	{
+		m_Nodes = std::vector<Node*>(size);
+		std::vector<std::vector<int>> tmpAdjacencyMatrix(size, std::vector<int>(size));
+		m_NodeSize = size;
+		m_EdgeSize = 0;
+
+		for (int i = 0; i < size; ++i) {
+			for (int j = 0; j < size; ++j) {
+				tmpAdjacencyMatrix[i][j] = adjacencyMatrix[i][j];
+			}
+		}
+
+		Create(tmpAdjacencyMatrix);
+	}
+
+	Graph::~Graph()
+	{
+		for (auto node : m_Nodes) {
+			delete node;
+		}
+
+		m_Nodes.clear();
+	}
+
+	void Graph::Create(const std::vector<std::vector<int>>& adjacencyMatrix)
+	{
 		for (int i = 0; i < adjacencyMatrix.size(); ++i) {
 			m_Nodes[i] = new Node(i);
 		}
@@ -117,15 +147,6 @@ namespace Graphs {
 				}
 			}
 		}
-	}
-
-	Graph::~Graph()
-	{
-		for (auto node : m_Nodes) {
-			delete node;
-		}
-
-		m_Nodes.clear();
 	}
 
 	std::vector<Node*> Graph::AddNode()

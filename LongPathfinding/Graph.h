@@ -101,7 +101,18 @@ namespace Graphs {
 			@param adjacencyMatrix — 2D array that represents how nodes are connected
 		*/
 		Graph(const std::vector<std::vector<int>>& adjacencyMatrix);
+		Graph(int** adjacencyMatrix, const int& size);
+
 		~Graph();
+
+		/*
+			Creates a directed weighted graph using adjacency matrix. 0 in adjacency
+			matrix means that there will not be edge between two specific nodes.
+			Other numbers in the matrix will create edges with weights
+
+			@param adjacencyMatrix — 2D array that represents how nodes are connected
+		*/
+		void Create(const std::vector<std::vector<int>>& adjacencyMatrix);
 
 		/*
 			Adds an empty node to the graph

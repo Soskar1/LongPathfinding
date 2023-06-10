@@ -22,11 +22,13 @@ int main()
 		});
 
 	std::vector<Node*> nodes = graph.GetNodes();
-	std::list<Node*> path = LongestPath(graph, nodes[0], nodes[7]);
+	auto path = LongestPath(graph, nodes[0], nodes[7]);
 
-	for (auto node : path) {
+	for (auto node : path.first) {
 		std::cout << node->GetID() << " ";
 	}
+
+	std::cout << "\nlength: " << path.second;
 
 	return 0;
 }

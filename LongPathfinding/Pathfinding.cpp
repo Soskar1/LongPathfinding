@@ -50,7 +50,7 @@ namespace Pathfinding {
 		return path;
 	}
 
-	std::list<Graphs::Node*> LongestPath(const Graphs::Graph& graph, Graphs::Node* startNode, Graphs::Node* endNode) {
+	std::pair<std::list<Graphs::Node*>, size_t> LongestPath(const Graphs::Graph& graph, Graphs::Node* startNode, Graphs::Node* endNode) {
 		using namespace Graphs;
 
 		std::vector<Node*> graphNodes = graph.GetNodes();
@@ -100,14 +100,14 @@ namespace Pathfinding {
 
 		if (paths.size() != 0) {
 			auto path = *paths.begin();
-			return ConstructPath(path.cameFrom, endNode);
+			return std::make_pair(ConstructPath(path.cameFrom, endNode), path.currentCost);
 		}
 		else {
-			return std::list<Node*>();
+			return std::make_pair(std::list<Node*>(), 0);
 		}
 	}
 
-	std::list<Graphs::Node*> LongestPathHeuristic(const Graphs::Graph& graph, Graphs::Node* startNode, Graphs::Node* endNode)
+	std::pair<std::list<Graphs::Node*>, size_t> LongestPathHeuristic(const Graphs::Graph& graph, Graphs::Node* startNode, Graphs::Node* endNode)
 	{
 		using namespace Graphs;
 
@@ -153,8 +153,8 @@ namespace Pathfinding {
 		}
 
 		if (cameFrom.find(endNode) != cameFrom.end())
-			return ConstructPath(cameFrom, endNode);
+			return std::make_pair(ConstructPath(cameFrom, endNode), distances[endNode->GetID()]);
 		else
-			return std::list<Node*>();
+			return std::make_pair(std::list<Node*>(), 0);
 	}
 }

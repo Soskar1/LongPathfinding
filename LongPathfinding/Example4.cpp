@@ -25,11 +25,13 @@ int main()
 
 	graph.AddEdge(nodes[1], nodes[3], 100); //This edge will not be added
 
-	std::list<Node*> path = LongestPath(graph, nodes[0], nodes[3]);
+	auto path = LongestPath(graph, nodes[0], nodes[3]);
 
-	for (auto node : path) {
+	for (auto node : path.first) {
 		std::cout << node->GetID() << " ";
 	}
+
+	std::cout << "\nlength: " << path.second;
 
 	return 0;
 }
