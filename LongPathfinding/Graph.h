@@ -2,11 +2,12 @@
 #define GRAPH_H
 
 #include <vector>
+#include <utility>
 
 namespace Graphs {
 	class Node {
 	private:
-		size_t m_ID;
+		int m_ID;
 		std::vector<std::pair<Node*, int>> m_OutEdges;
 		std::vector<Node*> m_InEdges;
 	public:
@@ -15,7 +16,7 @@ namespace Graphs {
 
 			@param id — node id
 		*/
-		Node(const size_t& id);
+		Node(const int& id);
 		~Node();
 
 		/*
@@ -74,14 +75,14 @@ namespace Graphs {
 		/*
 			@return node id
 		*/
-		size_t GetID() const;
+		int GetID() const;
 	};
 
 	class Graph {
 	private:
 		std::vector<Node*> m_Nodes;
-		size_t m_EdgeSize;
-		size_t m_NodeSize;
+		int m_EdgeSize;
+		int m_NodeSize;
 	public:
 		//Creates an empty directed weighted graph
 		Graph();
@@ -91,7 +92,7 @@ namespace Graphs {
 
 			@param size — number of vertices
 		*/
-		Graph(const size_t& size);
+		Graph(const int& size);
 
 		/*
 			Creates a directed weighted graph using adjacency matrix. 0 in adjacency
@@ -101,6 +102,18 @@ namespace Graphs {
 			@param adjacencyMatrix — 2D array that represents how nodes are connected
 		*/
 		Graph(const std::vector<std::vector<int>>& adjacencyMatrix);
+<<<<<<< Updated upstream
+=======
+
+		/*
+			Creates a directed weighted graph using adjacency matrix. 0 in adjacency
+			matrix means that there will not be edge between two specific nodes.
+			Other numbers in the matrix will create edges with weights
+
+			@param adjacencyMatrix — 2D array that represents how nodes are connected
+			@param size — array size
+		*/
+>>>>>>> Stashed changes
 		Graph(int** adjacencyMatrix, const int& size);
 
 		~Graph();
@@ -129,7 +142,7 @@ namespace Graphs {
 			@param startNode — the node from which the edge will be created
 			@param endNode — the node to which the edge will be directed
 		*/
-		void AddEdge(Node* startNode, Node* endNode, const size_t& weight = 0);
+		void AddEdge(Node* startNode, Node* endNode, const int& weight = 0);
 
 		/*
 			Removes a node from the graph and removes all edges that are connected
@@ -158,7 +171,7 @@ namespace Graphs {
 
 			@return number of the adjacent nodes
 		*/
-		size_t GetAdjacentNodesSize(Node* node) const;
+		int GetAdjacentNodesSize(Node* node) const;
 
 		/*
 			@param node — the node for which you want to know the neighbouring nodes
@@ -170,13 +183,12 @@ namespace Graphs {
 		/*
 			@return Number of nodes in the graph
 		*/
-		size_t GetNodeSize() const;
+		int GetNodeSize() const;
 
 		/*
 			@return Number of edges in the graph
 		*/
-		size_t GetEdgeSize() const;
-
+		int GetEdgeSize() const;
 
 		/*
 			Helper function to determine if the nodes are connected in the directed graph

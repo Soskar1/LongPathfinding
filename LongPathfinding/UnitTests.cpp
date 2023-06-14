@@ -8,7 +8,7 @@
 
 int testCounter = 0;
 
-void LongestPathTest(const std::vector<std::vector<int>>& adjacencyMatrix, const size_t& startNode, const size_t& endNode, const std::vector<int>& correctPath) {
+void LongestPathTest(const std::vector<std::vector<int>>& adjacencyMatrix, const int& startNode, const int& endNode, const std::vector<int>& correctPath) {
 	using namespace Graphs;
 	using namespace Pathfinding;
 	

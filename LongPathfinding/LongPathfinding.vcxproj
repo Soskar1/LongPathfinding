@@ -21,7 +21,10 @@
   <ItemGroup>
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Pathfinding.cpp" />
+<<<<<<< Updated upstream
     <ClCompile Include="testing.cpp" />
+=======
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graph.h" />

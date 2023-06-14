@@ -24,7 +24,12 @@ int main()
 		});
 
 	std::vector<Node*> nodes = graph.GetNodes();
+<<<<<<< Updated upstream
 	auto path = LongestPathHeuristic(graph, nodes[0], nodes[10]);
+=======
+	auto pathInfo = LongestPath(graph, nodes[0], nodes[10]);
+	std::list<Node*> path = pathInfo.first;
+>>>>>>> Stashed changes
 
 	for (auto node : path.first) {
 		std::cout << node->GetID() << " ";

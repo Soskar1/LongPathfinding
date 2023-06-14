@@ -28,7 +28,11 @@ int main()
 		std::cout << node->GetID() << " ";
 	}
 
+<<<<<<< Updated upstream
 	std::cout << "\nlength: " << path.second;
+=======
+	std::cout << "length: " << path.second;
+>>>>>>> Stashed changes
 
 	return 0;
 }

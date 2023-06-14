@@ -3,10 +3,9 @@
 #include <cstdlib>
 #include <cmath>
 #include <algorithm>
-#include <iostream>
 
 namespace Graphs {
-	Node::Node(const size_t& id)
+	Node::Node(const int& id)
 	{
 		m_ID = id;
 	}
@@ -78,7 +77,7 @@ namespace Graphs {
 		return nodes;
 	}
 
-	size_t Node::GetID() const
+	int Node::GetID() const
 	{
 		return m_ID;
 	}
@@ -90,7 +89,7 @@ namespace Graphs {
 		m_NodeSize = 0;
 	}
 
-	Graph::Graph(const size_t& size)
+	Graph::Graph(const int& size)
 	{
 		for (int i = 0; i < size; ++i) {
 			m_Nodes.push_back(new Node(i));
@@ -125,6 +124,25 @@ namespace Graphs {
 		Create(tmpAdjacencyMatrix);
 	}
 
+	Graph::Graph(int** adjacencyMatrix, const int& size)
+	{
+		m_Nodes = std::vector<Node*>(size);
+		m_EdgeSize = 0;
+		m_NodeSize = size;
+
+		for (int i = 0; i < size; ++i) {
+			m_Nodes[i] = new Node(i);
+		}
+
+		for (int i = 0; i < size; ++i) {
+			for (int j = 0; j < size; ++j) {
+				if (adjacencyMatrix[i][j] != 0) {
+					AddEdge(m_Nodes[i], m_Nodes[j], adjacencyMatrix[i][j]);
+				}
+			}
+		}
+	}
+
 	Graph::~Graph()
 	{
 		for (auto node : m_Nodes) {
@@ -152,9 +170,9 @@ namespace Graphs {
 	std::vector<Node*> Graph::AddNode()
 	{
 		Node* node;
-		size_t id = m_Nodes.size();
+		int id = m_Nodes.size();
 
-		for (size_t i = 0; i < m_Nodes.size(); ++i) {
+		for (int i = 0; i < m_Nodes.size(); ++i) {
 			if (m_Nodes[i] == nullptr) {
 				id = i;
 				break;
@@ -174,7 +192,7 @@ namespace Graphs {
 		return m_Nodes;
 	}
 
-	void Graph::AddEdge(Node* startNode, Node* endNode, const size_t& weight)
+	void Graph::AddEdge(Node* startNode, Node* endNode, const int& weight)
 	{
 		if (Connected(startNode, endNode))
 			return;
@@ -212,7 +230,7 @@ namespace Graphs {
 		return m_Nodes;
 	}
 
-	size_t Graph::GetAdjacentNodesSize(Node* node) const
+	int Graph::GetAdjacentNodesSize(Node* node) const
 	{
 		return node->GetAdjacentNodes().size();
 	}
@@ -222,12 +240,12 @@ namespace Graphs {
 		return node->GetAdjacentNodes();
 	}
 
-	size_t Graph::GetNodeSize() const
+	int Graph::GetNodeSize() const
 	{
 		return m_NodeSize;
 	}
 
-	size_t Graph::GetEdgeSize() const
+	int Graph::GetEdgeSize() const
 	{
 		return m_EdgeSize;
 	}

@@ -50,7 +50,11 @@ namespace Pathfinding {
 		return path;
 	}
 
+<<<<<<< Updated upstream
 	std::pair<std::list<Graphs::Node*>, size_t> LongestPath(const Graphs::Graph& graph, Graphs::Node* startNode, Graphs::Node* endNode) {
+=======
+	std::pair<std::list<Graphs::Node*>, int> LongestPath(const Graphs::Graph& graph, Graphs::Node* startNode, Graphs::Node* endNode) {
+>>>>>>> Stashed changes
 		using namespace Graphs;
 
 		std::vector<Node*> graphNodes = graph.GetNodes();
@@ -107,7 +111,11 @@ namespace Pathfinding {
 		}
 	}
 
+<<<<<<< Updated upstream
 	std::pair<std::list<Graphs::Node*>, size_t> LongestPathHeuristic(const Graphs::Graph& graph, Graphs::Node* startNode, Graphs::Node* endNode)
+=======
+	std::pair<std::list<Graphs::Node*>, int> LongestPathHeuristic(const Graphs::Graph& graph, Graphs::Node* startNode, Graphs::Node* endNode)
+>>>>>>> Stashed changes
 	{
 		using namespace Graphs;
 

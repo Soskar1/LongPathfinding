@@ -21,9 +21,12 @@
     <ClCompile Include="Pathfinding.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
     <ClCompile Include="testing.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+=======
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graph.h">
